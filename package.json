@@ -1,0 +1,12 @@
+{
+  "name": "marp-company-confidential",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "build": "marp example/deck.md --theme-set themes -o dist/deck.html",
+    "pdf": "marp example/deck.md --theme-set themes --allow-local-files -o dist/deck.pdf"
+  },
+  "devDependencies": {
+    "@marp-team/marp-cli": "^4.0.0"
+  }
+}

@@ -1,0 +1,38 @@
+/* @theme confidential */
+
+@import 'default';
+
+section {
+  --company-name: 'Company Name';
+  --confidentiality: 'COMPANY CONFIDENTIAL';
+  --company-logo: none;
+  /* Horizontal room reserved for the logo; leave 0 when no logo is set. */
+  --company-logo-width: 0px;
+  --confidentiality-color: #6b7280;
+}
+
+section::before {
+  content: var(--company-name) '  |  ' var(--confidentiality);
+  position: absolute;
+  left: 30px;
+  bottom: 24px;
+  height: 20px;
+  padding-left: var(--company-logo-width);
+  font-size: 12px;
+  line-height: 20px;
+  letter-spacing: 0.04em;
+  color: var(--confidentiality-color);
+  background: var(--company-logo) no-repeat left center / auto 100%;
+}
+
+section.internal {
+  --confidentiality-color: #2563eb;
+}
+
+section.confidential {
+  --confidentiality-color: #d97706;
+}
+
+section.restricted {
+  --confidentiality-color: #dc2626;
+}
