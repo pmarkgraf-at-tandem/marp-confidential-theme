@@ -2,43 +2,45 @@
 
 Goal: a Marp theme that shows company name, confidentiality level and a logo in a small footer strip on every slide.
 
-## Phase 1: theme and variable-driven footer
+Status: Phase 1 and Phase 2 are implemented. Remaining items are listed under Open items.
 
-1. `themes/confidential.css`: `/* @theme confidential */`, `@import 'default';`.
-2. Defaults on `section`: `--company-name`, `--confidentiality` (quoted strings), `--company-logo` (`url(...)`).
-3. `section::before` draws the strip: absolute, bottom-left, about 12px, muted colour. `content: var(--company-name) " | " var(--confidentiality)`. The logo is a background (no-repeat, left center, contain) with left padding. The page number stays in `section::after` (`paginate: true`).
-4. Optional level classes (`.internal`, `.confidential`, `.restricted`) that only change colour or weight.
-5. Authors set front matter: `marp: true`, `theme: confidential`, `paginate: true`, and a `style:` block that sets the three CSS variables on `section`.
+## Phase 1: theme and variable-driven footer (done)
 
-## Phase 2 (optional, after phase 1): first-class directives
+- [themes/confidential.css](themes/confidential.css) extends `default`.
+- `section` defines `--company`, `--confidentiality` and `--logo`, plus `--confidentiality-color`.
+- `section::before` draws the strip bottom-left (about 12px). The logo is its background, with left padding reserved for it. The page number stays in `section::after`.
+- Level classes (`.internal`, `.confidential`, `.restricted`) change only the strip colour.
 
-6. A `marp.config.js` plugin registers global custom directives (`company`, `confidentiality`, `logo`) via `marpit.customDirectives.global`, mapped to the CSS variables.
-7. Register `themeSet` with the themes folder.
-8. Caveat: only works with Marp CLI or a config-aware engine. Keep phase 1 as the fallback for the VS Code preview.
+## Phase 2: front-matter directives (done)
 
-## Supporting files
+- [marp.config.js](marp.config.js) registers the global directives `company`, `confidentiality` and `logo`, and sets `themeSet` to `themes`.
+- Directive values are escaped into CSS strings, then written as inline `--<name>` custom properties on each slide. This uses a core rule after `marpit_directives_apply`, because Marpit snapshots directive names at construction.
+- Omitted values fall back to the theme defaults:
+  - company: "Unknown Company"
+  - confidentiality: "Unknown Confidentiality"
+  - logo: a question-mark emoji drawn as an SVG image
+- Only works with Marp CLI or another engine that loads the config. A `style:` block that sets `--company`, `--confidentiality` and `--logo` works everywhere.
 
-9. `assets/logo.svg` placeholder. Prefer a data URI or inline SVG so PDF/PPTX export does not depend on local paths.
-10. `example/deck.md` demo deck.
-11. `package.json` with `@marp-team/marp-cli` and build/pdf scripts (`--theme-set themes`; `--allow-local-files` for PDF).
-12. `.vscode/settings.json`: `markdown.marp.themes` -> `themes/confidential.css`.
+## Supporting files (done)
 
-## Verification
+- [assets/logo.svg](assets/logo.svg): placeholder logo.
+- [example/deck.md](example/deck.md): all directives set. [example/defaults.md](example/defaults.md): none set.
+- [package.json](package.json): `build` and `pdf` scripts.
+- [.vscode/settings.json](.vscode/settings.json): `markdown.marp.themes` points at the theme.
 
-- `npx marp --theme-set themes example/deck.md -o dist/deck.html`: footer on every slide, including title and lead slides.
-- PDF export with `--allow-local-files`: logo renders.
-- With `paginate: true`, the page number does not overlap the strip.
-- Changing the front-matter values updates the footer.
-- The VS Code Marp preview loads the theme.
+## Verified
+
+- HTML build, PDF build and PNG renders succeed.
+- The footer appears on every slide, including `lead` and `restricted` slides, and the page number does not overlap it.
+- Defaults render when the directives are omitted.
 
 ## Decisions
 
-- Pure-CSS variables first (works in every Marp environment).
 - The footer is theme-enforced via `::before`, not the per-slide `footer:` directive, so authors cannot overwrite the marking.
 - Out of scope: access control, watermarking, PowerPoint master-slide fidelity.
 
-## Open questions
+## Open items
 
-1. Logo format: SVG (recommended) or PNG as a base64 data URI.
-2. Fixed confidentiality vocabulary (Public / Internal / Confidential / Restricted) that needs distinct styling?
-3. Enforce a default marking ("COMPANY CONFIDENTIAL") when the author omits it? Recommended: yes.
+- Confirm whether the VS Code Marp preview picks up `marp.config.js` directives (assumed not).
+- The logo path is relative to the output file. Decide whether to embed logos as data URIs for portability.
+- Check the question-mark emoji logo in the PDF output.

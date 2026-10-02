@@ -2,13 +2,9 @@
 marp: true
 theme: confidential
 paginate: true
-style: |
-  section {
-    --company-name: 'Acme Corp';
-    --confidentiality: 'COMPANY CONFIDENTIAL';
-    --company-logo: url('../assets/logo.svg');
-    --company-logo-width: 26px;
-  }
+company: Acme Corp
+confidentiality: COMPANY CONFIDENTIAL
+logo: ../assets/logo.svg
 ---
 
 <!-- _class: lead -->

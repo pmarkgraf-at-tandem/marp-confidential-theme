@@ -2,27 +2,30 @@
 
 @import 'default';
 
+/*
+ * Inputs: set per deck via the company / confidentiality / logo directives
+ * (see marp.config.js), or directly as CSS custom properties in a `style:` block.
+ */
 section {
-  --company-name: 'Company Name';
-  --confidentiality: 'COMPANY CONFIDENTIAL';
-  --company-logo: none;
-  /* Horizontal room reserved for the logo; leave 0 when no logo is set. */
-  --company-logo-width: 0px;
+  --company: 'Unknown Company';
+  --confidentiality: 'Unknown Confidentiality';
+  /* Question-mark emoji drawn as an image so it fills the same slot as a real logo. */
+  --logo: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Ctext x='10' y='16' font-size='16' text-anchor='middle'%3E%E2%9D%93%3C/text%3E%3C/svg%3E");
   --confidentiality-color: #6b7280;
 }
 
 section::before {
-  content: var(--company-name) '  |  ' var(--confidentiality);
+  content: var(--company) '  |  ' var(--confidentiality);
   position: absolute;
   left: 30px;
   bottom: 24px;
   height: 20px;
-  padding-left: var(--company-logo-width);
+  padding-left: 26px;
   font-size: 12px;
   line-height: 20px;
   letter-spacing: 0.04em;
   color: var(--confidentiality-color);
-  background: var(--company-logo) no-repeat left center / auto 100%;
+  background: var(--logo) no-repeat left center / auto 100%;
 }
 
 section.internal {
