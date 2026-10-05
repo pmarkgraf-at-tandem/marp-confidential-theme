@@ -2,7 +2,7 @@
 
 Goal: a Marp theme that shows company name, confidentiality level and a logo in a small footer strip on every slide.
 
-Status: Phase 1 and Phase 2 are implemented. Remaining items are listed under Open items.
+Status: Phase 1 and Phase 2 are implemented and the package is published. No open items.
 
 ## Phase 1: theme and variable-driven footer (done)
 
@@ -33,9 +33,9 @@ Status: Phase 1 and Phase 2 are implemented. Remaining items are listed under Op
 
 - HTML build, PDF build and PNG renders succeed.
 - The footer appears on every slide, including `lead` and `restricted` slides, and the page number does not overlap it.
-- Defaults render when the directives are omitted.
-
+- Defaults render when the directives are omitted, including the question-mark logo in the PDF.
 - Confirmed: the VS Code Marp preview ignores `marp.config.js` directives and shows the defaults. Use the `style:` block there.
+- The package published to GitHub Packages installs and builds a deck from a clean project.
 
 ## Decisions
 
@@ -44,4 +44,4 @@ Status: Phase 1 and Phase 2 are implemented. Remaining items are listed under Op
 
 ## Open items
 
-- Check the question-mark emoji logo in the PDF output.
+None.
