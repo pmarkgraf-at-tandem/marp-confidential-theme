@@ -44,7 +44,7 @@ theme: confidential
 paginate: true
 company: Acme Corp
 confidentiality: COMPANY CONFIDENTIAL
-logo: ../assets/logo.svg
+logo: assets/logo.svg
 ---
 
 # My slide
@@ -56,7 +56,7 @@ logo: ../assets/logo.svg
 | `confidentiality` | Confidentiality level text    | `Unknown Confidentiality`    |
 | `logo`            | Path or URL of the logo image | A question-mark emoji (❓)   |
 
-A relative `logo` path is resolved relative to the output file, so keep the deck and its output folder at the same depth from the logo (for example `example/` and `dist/`). An absolute URL or a data URI works from anywhere.
+A local `logo` file (SVG, PNG, JPEG, GIF or WebP) is embedded in the output as a data URI, so the HTML and PDF work from anywhere. A relative path resolves against the folder you run `marp` from, because Marp CLI does not tell the config where the deck is. `https://` URLs and data URIs are used as they are. If the file is missing or has an unsupported type, the build prints a warning and the default logo is used.
 
 ### Level colours
 
@@ -81,14 +81,14 @@ For your own deck:
 
 ```sh
 npx marp my-deck.md -o dist/my-deck.html
-npx marp my-deck.md --allow-local-files -o dist/my-deck.pdf
+npx marp my-deck.md -o dist/my-deck.pdf
 ```
 
-`--allow-local-files` is needed for the logo to appear in PDF output.
+The logo appears in PDF output without `--allow-local-files`, because it is embedded.
 
 ### VS Code preview
 
-[.vscode/settings.json](.vscode/settings.json) registers the theme for the Marp for VS Code preview. The preview probably ignores `marp.config.js`, so the directives may not apply there and the defaults show. In that case, set the CSS variables directly in the front matter, which works in every Marp environment:
+[.vscode/settings.json](.vscode/settings.json) registers the theme for the Marp for VS Code preview. The preview ignores `marp.config.js`, so the directives do not apply there and the defaults show. Set the CSS variables directly in the front matter instead, which works in every Marp environment:
 
 ```markdown
 ---
@@ -117,8 +117,7 @@ The deck's front matter still needs `theme: confidential` plus the `company`, `c
 
 - **Config discovery:** Marp looks for `marp.config.js` in the current folder and its parents. A deck inside this project needs no `--config-file`.
 - **Theme location:** `themeSet: 'themes'` resolves relative to the config file, not the folder you run from. Keep `marp.config.js` and `themes/` together.
-- **Logo path:** a relative `logo` is resolved relative to the output file, not the deck. For decks outside this project, use an absolute `file://` URL, an `https://` URL or a data URI.
-- **PDF:** add `--allow-local-files` so a local logo appears.
+- **Logo path:** a relative `logo` resolves against the folder you run `marp` from. Run from the deck's folder, or use an absolute path, `file://` URL, `https://` URL or data URI.
 - **Do not combine `--theme` with `--config-file`:** the build warns "Not found additional theme CSS files" and the theme name is hashed. Use the config alone.
 - **Do not use `--theme` without the config:** the footer renders, but the directives are ignored and every deck shows the defaults.
 - **No config and no `--theme`:** Marp silently falls back to its default theme.

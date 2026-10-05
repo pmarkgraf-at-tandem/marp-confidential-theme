@@ -19,6 +19,7 @@ Status: Phase 1 and Phase 2 are implemented. Remaining items are listed under Op
   - company: "Unknown Company"
   - confidentiality: "Unknown Confidentiality"
   - logo: a question-mark emoji drawn as an SVG image
+- Local logo files are inlined as base64 data URIs at build time, so output works when moved and in PDF without `--allow-local-files`. Relative paths resolve against the working directory, because Marp CLI does not pass the deck path to the engine. Missing or unsupported files warn and fall back to the default logo.
 - Only works with Marp CLI or another engine that loads the config. A `style:` block that sets `--company`, `--confidentiality` and `--logo` works everywhere.
 
 ## Supporting files (done)
@@ -34,6 +35,8 @@ Status: Phase 1 and Phase 2 are implemented. Remaining items are listed under Op
 - The footer appears on every slide, including `lead` and `restricted` slides, and the page number does not overlap it.
 - Defaults render when the directives are omitted.
 
+- Confirmed: the VS Code Marp preview ignores `marp.config.js` directives and shows the defaults. Use the `style:` block there.
+
 ## Decisions
 
 - The footer is theme-enforced via `::before`, not the per-slide `footer:` directive, so authors cannot overwrite the marking.
@@ -41,6 +44,4 @@ Status: Phase 1 and Phase 2 are implemented. Remaining items are listed under Op
 
 ## Open items
 
-- Confirm whether the VS Code Marp preview picks up `marp.config.js` directives (assumed not).
-- The logo path is relative to the output file. Decide whether to embed logos as data URIs for portability.
 - Check the question-mark emoji logo in the PDF output.

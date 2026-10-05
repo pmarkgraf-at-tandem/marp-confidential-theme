@@ -4,7 +4,7 @@ theme: confidential
 paginate: true
 company: Acme Corp
 confidentiality: COMPANY CONFIDENTIAL
-logo: ../assets/logo.svg
+logo: assets/logo.svg
 ---
 
 <!-- _class: lead -->
