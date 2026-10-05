@@ -1,10 +1,34 @@
 {
-  "name": "marp-company-confidential",
+  "name": "@pmarkgraf-at-tandem/marp-confidential-theme",
   "version": "0.1.0",
-  "private": true,
+  "description": "Marp theme that marks every slide as company confidential with a company name, confidentiality level and logo strip.",
+  "license": "MIT",
+  "keywords": [
+    "marp",
+    "marp-theme",
+    "marpit",
+    "confidential"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pmarkgraf-at-tandem/marp-confidential-theme.git"
+  },
+  "main": "marp.config.js",
+  "files": [
+    "marp.config.js",
+    "themes/",
+    "assets/",
+    "MIT-LICENSE.txt"
+  ],
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
   "scripts": {
     "build": "marp example/deck.md -o dist/deck.html",
     "pdf": "marp example/deck.md --allow-local-files -o dist/deck.pdf"
+  },
+  "peerDependencies": {
+    "@marp-team/marp-cli": ">=4.0.0"
   },
   "devDependencies": {
     "@marp-team/marp-cli": "^4.0.0"

@@ -8,6 +8,25 @@ A [Marp](https://marp.app/) theme that marks every slide as company confidential
 
 The page number stays at the bottom-right. The strip comes from the theme, not the per-slide `footer:` directive, so authors cannot accidentally overwrite the marking.
 
+## Install from GitHub Packages
+
+Point the `@pmarkgraf-at-tandem` scope at GitHub Packages. Use a personal access token with `read:packages` (never commit it):
+
+```sh
+# ~/.npmrc
+@pmarkgraf-at-tandem:registry=https://npm.pkg.github.com
+//npm.pkg.github.com/:_authToken=YOUR_TOKEN
+```
+
+```sh
+npm install --save-dev @pmarkgraf-at-tandem/marp-confidential-theme @marp-team/marp-cli
+npx marp deck.md --config-file node_modules/@pmarkgraf-at-tandem/marp-confidential-theme/marp.config.js -o deck.html
+```
+
+## Publishing
+
+Bump `version` in [package.json](package.json), then publish a GitHub release. The [publish workflow](.github/workflows/publish.yml) runs `npm publish` with the built-in `GITHUB_TOKEN`.
+
 ## Setup
 
 ```sh
