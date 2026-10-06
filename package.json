@@ -1,6 +1,6 @@
 {
   "name": "@pmarkgraf-at-tandem/marp-confidential-theme",
-  "version": "0.1.0",
+  "version": "0.2.1",
   "description": "Marp theme that marks every slide as company confidential with a company name, confidentiality level and logo strip.",
   "license": "MIT",
   "keywords": [
